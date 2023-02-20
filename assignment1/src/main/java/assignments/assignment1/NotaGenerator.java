@@ -66,7 +66,7 @@ public class NotaGenerator {
                     } while (!isStringNumeric(weight));
 
                     String nota = generateNota(id, packageType, Integer.parseInt(weight), startDate);
-                    System.out.printf("Nota Laundry\n%s", nota);
+                    System.out.printf("Nota Laundry\n%s\n\n", nota);
                     break;
 
                 default:
@@ -154,7 +154,7 @@ public class NotaGenerator {
 
         nota.append(String.format("%d kg x %d = %d\n", (berat < 2 ? 2 : berat), packagePrice, (berat * packagePrice)));
         nota.append(String.format("Tanggal Terima  : %s\n", tanggalTerima));
-        nota.append(String.format("Tanggal Selesai : %s\n\n", endDate.format(formatter)));
+        nota.append(String.format("Tanggal Selesai : %s", endDate.format(formatter)));
 
         return nota.toString();
     }
