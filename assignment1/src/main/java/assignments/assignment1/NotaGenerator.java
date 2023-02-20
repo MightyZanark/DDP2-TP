@@ -9,7 +9,39 @@ public class NotaGenerator {
      * Method main, program utama kalian berjalan disini.
      */
     public static void main(String[] args) {
-        // TODO: Implement interface menu utama
+        String opt;
+
+        do {
+            printMenu();
+            System.out.print("Pilihan : ");
+            opt = input.nextLine();
+            // input.nextLine();
+            switch (opt) {
+                case "0":
+                    System.out.println("Terima kasih telah menggunakan NotaGenerator!");
+                    break;
+                case "1":
+                    System.out.println("================================");
+                    System.out.println("Masukkan nama Anda:");
+                    String nama = input.nextLine();
+                    // input.nextLine();
+                    System.out.println("Masukkan nomor handphone Anda:");
+                    String nomorHP;
+                    do {
+                        nomorHP = input.next();
+                        input.nextLine();
+                    } while (!isNumeric(nomorHP));
+
+                    String id = generateId(nama, nomorHP);
+                    System.out.printf("ID Anda : %s\n\n", id);
+                    break;
+                case "2":
+                    break;
+                default:
+                    System.out.println("Perintah tidak diketahui, silakan periksa kembali.\n");
+                    break;
+            }
+        } while (!opt.equals("0"));
     }
 
     /**
@@ -41,8 +73,14 @@ public class NotaGenerator {
      * @return String ID anggota dengan format [NAMADEPAN]-[nomorHP]-[2digitChecksum]
      */
     public static String generateId(String nama, String nomorHP){
-        // TODO: Implement generate ID sesuai soal.
-        return null;
+        StringBuilder id = new StringBuilder();
+        int firstWhitespace = nama.indexOf(' ');
+        String firstName = nama.substring(0, firstWhitespace).toUpperCase();
+        id.append(firstName + '-' + nomorHP);
+        int checksum = generateChecksum(id.toString());
+        id.append(String.format("-%02d", checksum));
+
+        return id.toString();
     }
 
     /**
@@ -62,5 +100,27 @@ public class NotaGenerator {
     public static String generateNota(String id, String paket, int berat, String tanggalTerima){
         // TODO: Implement generate nota sesuai soal.
         return null;
+    }
+
+    public static boolean isNumeric(String str) {
+        for (char character : str.toCharArray()) {
+            // System.out.println(character);
+            if (!Character.isDigit(character)) return false;
+        }
+        return true;
+    }
+
+    public static int generateChecksum(String str) {
+        int checksum = 0;
+        for (char character : str.toCharArray()) {
+            if (Character.isDigit(character)) {
+                checksum += Character.getNumericValue(character);
+            } else if (character >= 65 && character <= 90) {
+                checksum += character - 64;
+            } else {
+                checksum += 7;
+            }
+        }
+        return checksum;
     }
 }
