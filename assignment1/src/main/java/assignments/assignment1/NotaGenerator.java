@@ -29,6 +29,7 @@ public class NotaGenerator {
                 System.out.println("================================");
             } catch (InputMismatchException err) {
                 System.out.println("Perintah tidak diketahui, silakan periksa kembali.\n");
+                input.nextLine();
                 continue;
             }
             
@@ -56,7 +57,7 @@ public class NotaGenerator {
                     break;
 
                 default:
-                System.out.println("Perintah tidak diketahui, silakan periksa kembali.\n");
+                    System.out.println("Perintah tidak diketahui, silakan periksa kembali.\n");
                     break;
             }
         } while (opt != 0);
