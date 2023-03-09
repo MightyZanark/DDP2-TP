@@ -2,6 +2,7 @@ package assignments.assignment2;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
+import java.util.HashMap;
 
 import static assignments.assignment1.NotaGenerator.*;
 
@@ -10,7 +11,7 @@ public class MainMenu {
     private static SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
     private static Calendar cal = Calendar.getInstance();
     private static Nota[] notaList;
-    private static Member[] memberList;
+    private static HashMap<String, Member> memberList = new HashMap<>();
 
     public static void main(String[] args) {
         boolean isRunning = true;
