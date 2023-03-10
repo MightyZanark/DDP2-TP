@@ -30,12 +30,18 @@ public class MainMenu {
                 case "0" -> isRunning = false;
                 default -> System.out.println("Perintah tidak diketahui, silakan periksa kembali.");
             }
+            System.out.println(cal.getTime());
         }
         System.out.println("Terima kasih telah menggunakan NotaGenerator!");
     }
 
     private static void handleGenerateUser() {
         // TODO: handle generate user
+        String name = getData("Masukan nama Anda:", "name");
+        String noHp = getData("Masukan nomor handphone Anda:", "nomorHP");
+        Member member = new Member(name, noHp);
+        memberList.put(noHp, member);
+        System.out.printf("Berhasil membuat member dengan ID %s!\n\n", member.getId());
     }
 
     private static void handleGenerateNota() {

@@ -100,7 +100,7 @@ public class NotaGenerator {
         } catch (StringIndexOutOfBoundsException err) {
             firstName = nama.toUpperCase();
         }
-        id.append(firstName + '-' + nomorHP);
+        id.append(firstName + '-' + nomorHP.trim());
         String checksum = generateChecksum(id.toString());
         if (checksum.length() < 2) checksum = '0' + checksum;
         else if (checksum.length() > 2) checksum = checksum.substring(checksum.length() - 2);
@@ -125,28 +125,28 @@ public class NotaGenerator {
     public static String generateNota(String id, String paket, int berat, String tanggalTerima) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate endDate = LocalDate.parse(tanggalTerima, formatter);
-        int packagePrice = 0;
+        long packagePrice = 0;
         StringBuilder nota = new StringBuilder();
         nota.append(String.format("%-5s : %s\n", "ID", id));
         nota.append(String.format("%-5s : %s\n", "Paket", paket));
         nota.append(String.format("%-5s :\n", "Harga"));
         switch (paket.toLowerCase()) {
             case "express":
-                packagePrice = 12000;
+                packagePrice = 12L;
                 endDate = endDate.plusDays(1);
                 break;
             case "fast":
-                packagePrice = 10000;
+                packagePrice = 10L;
                 endDate = endDate.plusDays(2);
                 break;
             case "reguler":
-                packagePrice = 7000;
+                packagePrice = 7L;
                 endDate = endDate.plusDays(3);
                 break;
         }
         
         berat = berat < 2 ? 2 : berat;
-        nota.append(String.format("%d kg x %d = %d\n", berat, packagePrice, (berat * packagePrice)));
+        nota.append(String.format("%d kg x %d000 = %d000\n", berat, packagePrice, (berat * packagePrice)));
         nota.append(String.format("Tanggal Terima  : %s\n", tanggalTerima));
         nota.append(String.format("Tanggal Selesai : %s", endDate.format(formatter)));
 
@@ -201,7 +201,7 @@ public class NotaGenerator {
         switch (type) {
             case "nomorHP":
                 while (!isStringNumeric(data)) {
-                    System.out.println("Nomor hp hanya menerima digit");
+                    System.out.println("Field nomor hp hanya menerima digit");
                     data = input.nextLine().trim();
                 }
                 break;
@@ -219,7 +219,7 @@ public class NotaGenerator {
                 break;
 
             case "weight":
-                while (!isStringNumeric(data)) {
+                while (!isStringNumeric(data) || Integer.parseInt(data) < 0) {
                     System.out.println("Harap masukkan berat cucian Anda dalam bentuk bilangan positif.");
                     data = input.nextLine().trim();
                 }

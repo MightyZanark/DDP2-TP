@@ -11,17 +11,34 @@ public class Member {
     public Member(String nama, String noHp) {
         this.nama = nama;
         this.noHp = noHp;
+        this.bonusCounter = 0;
+        this.id = NotaGenerator.generateId(nama, noHp);
+
         // TODO: buat constructor untuk class ini
     }
 
     // TODO: tambahkan methods yang diperlukan untuk class ini
+    public String getName() {
+        return nama;
+    }
+
+    public String getNoHP() {
+        return noHp;
+    }
+
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public int getBonusCounter() {
         return bonusCounter;
     }
 
-    
+    public void incBonusCounter() {
+        this.bonusCounter++;
+    }
+
+    public void resetBonusCounter() {
+        this.bonusCounter = 0;
+    }
 }
