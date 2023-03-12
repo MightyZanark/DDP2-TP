@@ -26,6 +26,7 @@ public class NotaGenerator {
             
             try {
                 opt = input.nextInt();
+                input.nextLine();
                 System.out.println("================================");
             } catch (InputMismatchException err) {
                 System.out.println("Perintah tidak diketahui, silakan periksa kembali.\n");
@@ -195,8 +196,8 @@ public class NotaGenerator {
      */    
     public static String getData(String msg, String type) {
         System.out.println(msg);
-        String data = input.next().trim();
-        input.nextLine();
+        String data = input.nextLine().trim();
+        // input.nextLine();
 
         switch (type) {
             case "nomorHP":
