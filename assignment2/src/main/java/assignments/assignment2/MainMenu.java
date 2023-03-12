@@ -37,7 +37,6 @@ public class MainMenu {
     }
 
     private static void handleGenerateUser() {
-        // TODO: handle generate user
         String name = getData("Masukan nama Anda:", "name");
         String noHp = getData("Masukan nomor handphone Anda:", "nomorHP");
         String id = generateId(name, noHp);
@@ -54,7 +53,6 @@ public class MainMenu {
     }
 
     private static void handleGenerateNota() {
-        // TODO: handle ambil cucian
         System.out.println("Masukan ID member:");
         String memberId = input.nextLine();
         if (!memberList.containsKey(memberId)) {
@@ -80,7 +78,6 @@ public class MainMenu {
     }
 
     private static void handleListNota() {
-        // TODO: handle list semua nota pada sistem
         if (notaList.size() == 0) {
             System.out.println("Terdaftar 0 nota dalam sistem.");
             return;
@@ -97,7 +94,6 @@ public class MainMenu {
     }
 
     private static void handleListUser() {
-        // TODO: handle list semua user pada sistem
         if (memberList.size() == 0) {
             System.out.println("Terdaftar 0 member dalam sistem.");
             return;
@@ -110,7 +106,6 @@ public class MainMenu {
     }
 
     private static void handleAmbilCucian() {
-        // TODO: handle ambil cucian
         System.out.println("Masukan ID nota yang akan diambil:");
         int id = -1;
         boolean idValid = false;
@@ -140,7 +135,6 @@ public class MainMenu {
     }
 
     private static void handleNextDay() {
-        // TODO: handle ganti hari
         System.out.println("Dek Depe tidur hari ini... z...");
         if (notaList.size() != 0) {
             for (Nota nota : notaList.values()) {

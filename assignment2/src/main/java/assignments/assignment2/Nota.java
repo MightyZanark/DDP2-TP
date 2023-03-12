@@ -23,7 +23,6 @@ public class Nota {
 			case "fast" -> this.sisaHariPengerjaan = 2;
 			case "express" -> this.sisaHariPengerjaan = 1;
 		}
-		// TODO: buat constructor untuk class ini
     }
 
 	public void decSisaHariPengerjaan() {

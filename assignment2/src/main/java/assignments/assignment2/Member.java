@@ -7,17 +7,14 @@ public class Member {
 	private String noHp;
 	private String id;
 	private int bonusCounter;
-	// TODO: tambahkan attributes yang diperlukan untuk class ini
+
     public Member(String nama, String noHp, String id) {
         this.nama = nama;
         this.noHp = noHp;
         this.id = id;
         this.bonusCounter = 0;
-
-        // TODO: buat constructor untuk class ini
     }
 
-    // TODO: tambahkan methods yang diperlukan untuk class ini
     public String getName() {
         return nama;
     }
