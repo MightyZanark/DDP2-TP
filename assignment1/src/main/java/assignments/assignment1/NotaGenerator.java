@@ -53,7 +53,7 @@ public class NotaGenerator {
                     startDate = getData("Masukkan tanggal terima:", "startDate");
                     packageType = getData("Masukkan paket laundry:", "packageType");
                     weight = Integer.parseInt(getData("Masukkan berat cucian Anda [Kg]:", "weight"));
-                    String nota = generateNota(id, packageType, weight, startDate);
+                    String nota = generateNota(id, packageType, weight, startDate, false);
                     System.out.printf("Nota Laundry\n%s\n\n", nota);
                     break;
 
@@ -123,7 +123,7 @@ public class NotaGenerator {
      *         <p>Tanggal Terima  : [tanggalTerima]
      *         <p>Tanggal Selesai : [tanggalTerima + LamaHariPaket]
      */
-    public static String generateNota(String id, String paket, int berat, String tanggalTerima) {
+    public static String generateNota(String id, String paket, int berat, String tanggalTerima, boolean disc) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate endDate = LocalDate.parse(tanggalTerima, formatter);
         long packagePrice = 0;
@@ -147,9 +147,20 @@ public class NotaGenerator {
         }
         
         berat = berat < 2 ? 2 : berat;
-        nota.append(String.format("%d kg x %d000 = %d000\n", berat, packagePrice, (berat * packagePrice)));
+        long totalPrice = berat * packagePrice;
+        if (!disc) {
+            nota.append(String.format("%d kg x %d000 = %d000\n", berat, packagePrice, totalPrice));
+        } else {
+            nota.append(
+                String.format(
+                    "%d kg x %d000 = %d000 = %d000 (Discount member 50%%!!!)\n", 
+                    berat, packagePrice, totalPrice, (totalPrice / 2)
+                )
+            );
+        }
         nota.append(String.format("Tanggal Terima  : %s\n", tanggalTerima));
         nota.append(String.format("Tanggal Selesai : %s", endDate.format(formatter)));
+        nota.append(String.format("%-15s : Belum bisa diambil :(", "Status"));
 
         return nota.toString();
     }
@@ -211,16 +222,18 @@ public class NotaGenerator {
                 while (!isPackage(data)) {
                     if (data.equals("?")) {
                         showPaket();
+                        System.out.println(msg);
                     } else {
                         System.out.printf("Paket %s tidak diketahui\n", data);
                         System.out.println("[ketik ? untuk mencari tahu jenis paket]");
+                        System.out.println(msg);
                     }
                     data = input.nextLine().trim();
                 }
                 break;
 
             case "weight":
-                while (!isStringNumeric(data) || Integer.parseInt(data) < 0) {
+                while (!isStringNumeric(data) || Integer.parseInt(data) < 1) {
                     System.out.println("Harap masukkan berat cucian Anda dalam bentuk bilangan positif.");
                     data = input.nextLine().trim();
                 }
