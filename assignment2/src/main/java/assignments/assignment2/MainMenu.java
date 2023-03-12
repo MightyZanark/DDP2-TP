@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 import static assignments.assignment1.NotaGenerator.*;
 
@@ -10,8 +11,9 @@ public class MainMenu {
     private static final Scanner input = new Scanner(System.in);
     private static SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
     private static Calendar cal = Calendar.getInstance();
-    private static Nota[] notaList;
+    private static HashMap<Integer, Nota> notaList = new HashMap<>();
     private static HashMap<String, Member> memberList = new HashMap<>();
+    private static int idNota = 0;
 
     public static void main(String[] args) {
         boolean isRunning = true;
@@ -30,7 +32,6 @@ public class MainMenu {
                 case "0" -> isRunning = false;
                 default -> System.out.println("Perintah tidak diketahui, silakan periksa kembali.");
             }
-            System.out.println(cal.getTime());
         }
         System.out.println("Terima kasih telah menggunakan NotaGenerator!");
     }
@@ -39,8 +40,16 @@ public class MainMenu {
         // TODO: handle generate user
         String name = getData("Masukan nama Anda:", "name");
         String noHp = getData("Masukan nomor handphone Anda:", "nomorHP");
-        Member member = new Member(name, noHp);
-        memberList.put(noHp, member);
+        String id = generateId(name, noHp);
+        if (memberList.containsKey(id)) {
+            System.out.printf(
+                "Member dengan nama %1$s dan nomor hp %2$s sudah ada!\n",
+                name, noHp
+            );
+            return;
+        }
+        Member member = new Member(name, noHp, id);
+        memberList.put(id, member);
         System.out.printf("Berhasil membuat member dengan ID %s!\n\n", member.getId());
     }
 

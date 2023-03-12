@@ -10,8 +10,8 @@ public class Nota {
 	private String tanggalMasuk;
 	private int sisaHariPengerjaan;
 	private boolean isReady = false;
-    // TODO: tambahkan attributes yang diperlukan untuk class ini
-    public Nota(int idNota, Member member, String paket, int berat, String tanggalMasuk) {
+
+	public Nota(int idNota, Member member, String paket, int berat, String tanggalMasuk) {
 		this.idNota = idNota;
     	this.member = member;
 		this.paket = paket;
@@ -42,6 +42,21 @@ public class Nota {
 	public int getIdNota() {
 		return this.idNota;
 	}
-    // TODO: tambahkan methods yang diperlukan untuk class ini
-	
+
+	public String getPaket() {
+		return paket;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public int getBerat() {
+		return this.berat;
+	}
+
+	public String getTanggalMasuk() {
+		return tanggalMasuk;
+	}
+
 }
