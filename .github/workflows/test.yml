@@ -1,10 +1,12 @@
 name: test-tp-ddp2
 
 on:
-  push:
+  workflow_dispatch:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  # push:
+  #   branches: [ "master" ]
+  # pull_request:
+  #   branches: [ "master" ]
 
 jobs:
   check-assignments:
