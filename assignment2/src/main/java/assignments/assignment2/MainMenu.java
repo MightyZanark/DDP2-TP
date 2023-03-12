@@ -98,6 +98,15 @@ public class MainMenu {
 
     private static void handleListUser() {
         // TODO: handle list semua user pada sistem
+        if (memberList.size() == 0) {
+            System.out.println("Terdaftar 0 member dalam sistem.");
+            return;
+        }
+
+        System.out.printf("Terdapat %d member dalam sistem.", memberList.size());
+        for (Member member : memberList.values()) {
+            System.out.printf("- %1$s : %2$s\n", member.getId(), member.getName());
+        }
     }
 
     private static void handleAmbilCucian() {
