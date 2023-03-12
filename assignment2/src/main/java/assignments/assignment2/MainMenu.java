@@ -55,6 +55,28 @@ public class MainMenu {
 
     private static void handleGenerateNota() {
         // TODO: handle ambil cucian
+        System.out.println("Masukan ID member:");
+        String memberId = input.nextLine();
+        if (!memberList.containsKey(memberId)) {
+            System.out.printf("Member dengan ID %s tidak ditemukan!", memberId);
+            return;
+        }
+    
+        Member member = memberList.get(memberId);
+        member.incBonusCounter();
+        boolean disc = member.getBonusCounter() == 3;
+        if (disc) member.resetBonusCounter();
+
+        String paket = getData("Masukan paket laundry", "packageType");
+        int berat = Integer.parseInt(getData("Masukan berat cucian Anda [Kg]:", "weight"));
+        String startDate = fmt.format(cal.getTime());
+        String notaStr = generateNota(memberId, paket, berat, startDate, disc);
+        System.out.println("Berhasil menambahkan nota!");
+        System.out.printf("[ID Nota = %d]\n", idNota);
+        System.out.println(notaStr);
+        Nota nota = new Nota(idNota, member, paket, berat, startDate);
+        notaList.put(idNota, nota);
+        idNota++;
     }
 
     private static void handleListNota() {
