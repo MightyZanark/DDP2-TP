@@ -81,6 +81,19 @@ public class MainMenu {
 
     private static void handleListNota() {
         // TODO: handle list semua nota pada sistem
+        if (notaList.size() == 0) {
+            System.out.println("Terdaftar 0 nota dalam sistem.");
+            return;
+        }
+
+        System.out.printf("Terdapat %d nota dalam sistem.\n", notaList.size());
+        for (Nota nota : notaList.values()) {
+            System.out.printf(
+                "- [%1$d] Status\t\t : %2$s\n",
+                nota.getIdNota(),
+                nota.isReady() ? "Sudah dapat diambil!" : "Belum bisa diambil :("    
+            );
+        }
     }
 
     private static void handleListUser() {
