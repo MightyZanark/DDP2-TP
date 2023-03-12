@@ -91,7 +91,7 @@ public class MainMenu {
             System.out.printf(
                 "- [%1$d] Status\t\t : %2$s\n",
                 nota.getIdNota(),
-                nota.isReady() ? "Sudah dapat diambil!" : "Belum bisa diambil :("    
+                nota.isReady() ? "Sudah dapat diambil!" : "Belum bisa diambil :("
             );
         }
     }
@@ -141,6 +141,22 @@ public class MainMenu {
 
     private static void handleNextDay() {
         // TODO: handle ganti hari
+        System.out.println("Dek Depe tidur hari ini... z...");
+        if (notaList.size() != 0) {
+            for (Nota nota : notaList.values()) {
+                nota.decSisaHariPengerjaan();
+                if (nota.isReady()) {
+                    System.out.printf(
+                        "Laundry dengan nota ID %d sudah dapat diambil!\n",
+                        nota.getIdNota()
+                    );
+                }
+            }
+        }
+
+        System.out.println("Selamat pagi dunia!");
+        System.out.println("Dek Depe: It's CuciCuci Time.");
+        cal.add(Calendar.DATE, 1);
     }
 
     private static void printMenu() {
