@@ -8,11 +8,11 @@ public class Member {
 	private String id;
 	private int bonusCounter;
 	// TODO: tambahkan attributes yang diperlukan untuk class ini
-    public Member(String nama, String noHp) {
+    public Member(String nama, String noHp, String id) {
         this.nama = nama;
         this.noHp = noHp;
+        this.id = id;
         this.bonusCounter = 0;
-        this.id = NotaGenerator.generateId(nama, noHp);
 
         // TODO: buat constructor untuk class ini
     }
