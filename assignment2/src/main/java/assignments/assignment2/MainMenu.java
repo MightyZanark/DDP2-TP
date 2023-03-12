@@ -111,6 +111,32 @@ public class MainMenu {
 
     private static void handleAmbilCucian() {
         // TODO: handle ambil cucian
+        System.out.println("Masukan ID nota yang akan diambil:");
+        int id = -1;
+        boolean idValid = false;
+        while (!idValid) {
+            try {
+                id = input.nextInt();
+                if (id < 0) throw new InputMismatchException();
+                idValid = true;
+            } catch (InputMismatchException err) {
+                System.out.println("ID nota berbentuk angka!");
+            } finally {
+                input.nextLine();
+            }
+        }
+
+        if (!notaList.containsKey(id)) {
+            System.out.printf("Nota dengan ID %d tidak ditemukan!\n", id);
+            return;
+        }
+
+        if (!notaList.get(id).isReady()) {
+            System.out.printf("Nota dengan ID %d gagal diambil!\n", id);
+        }
+
+        System.out.printf("Nota dengan ID %d berhasil diambil!\n", id);
+        notaList.remove(id);
     }
 
     private static void handleNextDay() {
