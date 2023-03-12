@@ -2,6 +2,7 @@ package assignments.assignment2;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
+import java.util.HashMap;
 
 import static assignments.assignment1.NotaGenerator.*;
 
@@ -10,7 +11,7 @@ public class MainMenu {
     private static SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
     private static Calendar cal = Calendar.getInstance();
     private static Nota[] notaList;
-    private static Member[] memberList;
+    private static HashMap<String, Member> memberList = new HashMap<>();
 
     public static void main(String[] args) {
         boolean isRunning = true;
@@ -29,12 +30,18 @@ public class MainMenu {
                 case "0" -> isRunning = false;
                 default -> System.out.println("Perintah tidak diketahui, silakan periksa kembali.");
             }
+            System.out.println(cal.getTime());
         }
         System.out.println("Terima kasih telah menggunakan NotaGenerator!");
     }
 
     private static void handleGenerateUser() {
         // TODO: handle generate user
+        String name = getData("Masukan nama Anda:", "name");
+        String noHp = getData("Masukan nomor handphone Anda:", "nomorHP");
+        Member member = new Member(name, noHp);
+        memberList.put(noHp, member);
+        System.out.printf("Berhasil membuat member dengan ID %s!\n\n", member.getId());
     }
 
     private static void handleGenerateNota() {
