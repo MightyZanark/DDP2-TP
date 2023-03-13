@@ -8,10 +8,10 @@ public class Member {
 	private String id;
 	private int bonusCounter;
 
-    public Member(String nama, String noHp, String id) {
+    public Member(String nama, String noHp) {
         this.nama = nama;
         this.noHp = noHp;
-        this.id = id;
+        this.id = NotaGenerator.generateId(nama, noHp);
         this.bonusCounter = 0;
     }
 

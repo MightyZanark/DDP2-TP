@@ -39,17 +39,17 @@ public class MainMenu {
     private static void handleGenerateUser() {
         String name = getData("Masukan nama Anda:", "name");
         String noHp = getData("Masukan nomor handphone Anda:", "nomorHP");
-        String id = generateId(name, noHp);
-        if (memberList.containsKey(id)) {
+        Member member = new Member(name, noHp);
+
+        if (memberList.containsKey(member.getId())) {
             System.out.printf(
                 "Member dengan nama %1$s dan nomor hp %2$s sudah ada!\n",
                 name, noHp
             );
             return;
         }
-        Member member = new Member(name, noHp, id);
-        memberList.put(id, member);
-        System.out.printf("Berhasil membuat member dengan ID %s!\n\n", member.getId());
+        memberList.put(member.getId(), member);
+        System.out.printf("Berhasil membuat member dengan ID %s!\n", member.getId());
     }
 
     private static void handleGenerateNota() {
@@ -59,20 +59,17 @@ public class MainMenu {
             System.out.printf("Member dengan ID %s tidak ditemukan!", memberId);
             return;
         }
-    
-        Member member = memberList.get(memberId);
-        member.incBonusCounter();
-        boolean disc = member.getBonusCounter() == 3;
-        if (disc) member.resetBonusCounter();
-
         String paket = getData("Masukan paket laundry", "packageType");
         int berat = Integer.parseInt(getData("Masukan berat cucian Anda [Kg]:", "weight"));
         String startDate = fmt.format(cal.getTime());
-        String notaStr = generateNota(memberId, paket, berat, startDate, disc);
-        System.out.println("Berhasil menambahkan nota!");
-        System.out.printf("[ID Nota = %d]\n", idNota);
-        System.out.println(notaStr);
+    
+        Member member = memberList.get(memberId);
+        member.incBonusCounter();
+        
         Nota nota = new Nota(idNota, member, paket, berat, startDate);
+        System.out.println(nota.getNotaString());
+        if (member.getBonusCounter() == 3) member.resetBonusCounter();
+
         notaList.put(idNota, nota);
         idNota++;
     }
@@ -99,7 +96,7 @@ public class MainMenu {
             return;
         }
 
-        System.out.printf("Terdapat %d member dalam sistem.", memberList.size());
+        System.out.printf("Terdapat %d member dalam sistem.\n", memberList.size());
         for (Member member : memberList.values()) {
             System.out.printf("- %1$s : %2$s\n", member.getId(), member.getName());
         }

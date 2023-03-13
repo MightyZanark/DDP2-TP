@@ -9,7 +9,7 @@ public class Nota {
 	private int berat;
 	private String tanggalMasuk;
 	private int sisaHariPengerjaan;
-	private boolean isReady = false;
+	private boolean isReady;
 
 	public Nota(int idNota, Member member, String paket, int berat, String tanggalMasuk) {
 		this.idNota = idNota;
@@ -34,6 +34,23 @@ public class Nota {
 		this.isReady = true;
 	}
 
+	public String getNotaString() {
+		StringBuilder out = new StringBuilder();
+		out.append("Berhasil menambahkan nota!");
+		out.append(String.format("[ID Nota = %d]", this.idNota));
+		out.append(
+			NotaGenerator.generateNota(
+				this.member.getId(), 
+				this.paket, 
+				this.berat, 
+				this.tanggalMasuk, 
+				this.member.getBonusCounter() == 3
+			)
+		);
+
+		return out.toString();
+	}
+
 	public boolean isReady() {
 		return isReady;
 	}
@@ -41,21 +58,4 @@ public class Nota {
 	public int getIdNota() {
 		return this.idNota;
 	}
-
-	public String getPaket() {
-		return paket;
-	}
-
-	public Member getMember() {
-		return member;
-	}
-
-	public int getBerat() {
-		return this.berat;
-	}
-
-	public String getTanggalMasuk() {
-		return tanggalMasuk;
-	}
-
 }

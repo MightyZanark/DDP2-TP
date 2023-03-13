@@ -21,11 +21,28 @@ public class NotaGeneratorTest {
                 "01/02/2023"
             )
         );
+
+        String sol1 = "ID    : IKAN-08123298423-84\n" +
+                "Paket : express\n" + 
+                "Harga :\n" +
+                "2 kg x 12000 = 24000\n" +
+                "Tanggal Terima  : 01/02/2023\n" +
+                "Tanggal Selesai : 02/02/2023";
+        assertEquals(
+            sol1,
+            NotaGenerator.generateNota(
+                "IKAN-08123298423-84", 
+                "express", 
+                1, 
+                "01/02/2023")
+        );
     }
 
     @Test
     public void testGenerateId1() {
         assertEquals("DEK-082212345678-75", NotaGenerator.generateId("Dek Depe", "082212345678"));
+        assertEquals("ANYA-12345-63", NotaGenerator.generateId("Anya Forger", "12345"));
+        assertEquals("A-01-09", NotaGenerator.generateId("A Person", "01"));
     }
 
 }
