@@ -25,6 +25,11 @@ public class Nota {
 		}
     }
 
+	/**
+	 * Method to decrease the amount of days left until the laundry
+	 * is finished.
+	 * <p>When sisaHariPengerjaan reaches 0, sets isReady to true
+	 */
 	public void decSisaHariPengerjaan() {
 		if (this.sisaHariPengerjaan != 0) {
 			this.sisaHariPengerjaan--;
@@ -34,6 +39,11 @@ public class Nota {
 		this.isReady = true;
 	}
 
+	/**
+	 * Method to generate the nota for printing purposes
+	 * @return result from NotaGenerator.generateNota added
+	 *         with extra information needed from the doc
+	 */
 	public String getNotaString() {
 		StringBuilder out = new StringBuilder();
 		out.append("Berhasil menambahkan nota!");
@@ -51,6 +61,10 @@ public class Nota {
 		return out.toString();
 	}
 
+	/**
+	 * Checks if the laundry is ready to be picked up
+	 * @return ready state
+	 */
 	public boolean isReady() {
 		return isReady;
 	}

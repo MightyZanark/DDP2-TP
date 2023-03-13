@@ -31,10 +31,16 @@ public class Member {
         return bonusCounter;
     }
 
+    /**
+     * Method to simply increase the bonus counter.
+     */
     public void incBonusCounter() {
         this.bonusCounter++;
     }
 
+    /**
+     * Method to reset the bonus counter when it reaches 3.
+     */
     public void resetBonusCounter() {
         this.bonusCounter = 0;
     }
