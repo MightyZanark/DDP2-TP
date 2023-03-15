@@ -40,19 +40,19 @@ public class NotaGenerator {
                     break;
 
                 case 1:
-                    nama = getData("Masukkan nama Anda:", "name");
-                    nomorHP = getData("Masukkan nomor handphone Anda:", "nomorHP");
+                    nama = getData("Masukkan nama Anda:", "name", input);
+                    nomorHP = getData("Masukkan nomor handphone Anda:", "nomorHP", input);
                     id = generateId(nama, nomorHP);
                     System.out.printf("ID Anda : %s\n\n", id);
                     break;
 
                 case 2:
-                    nama = getData("Masukkan nama Anda:", "name");
-                    nomorHP = getData("Masukkan nomor handphone Anda:", "nomorHP");
+                    nama = getData("Masukkan nama Anda:", "name", input);
+                    nomorHP = getData("Masukkan nomor handphone Anda:", "nomorHP", input);
                     id = generateId(nama, nomorHP);
-                    startDate = getData("Masukkan tanggal terima:", "startDate");
-                    packageType = getData("Masukkan paket laundry:", "packageType");
-                    weight = Integer.parseInt(getData("Masukkan berat cucian Anda [Kg]:", "weight"));
+                    startDate = getData("Masukkan tanggal terima:", "startDate", input);
+                    packageType = getData("Masukkan paket laundry:", "packageType", input);
+                    weight = Integer.parseInt(getData("Masukkan berat cucian Anda [Kg]:", "weight", input));
                     String nota = generateNota(id, packageType, weight, startDate, false);
                     System.out.printf("Nota Laundry\n%s\n\n", nota);
                     break;
@@ -78,7 +78,7 @@ public class NotaGenerator {
     /**
      * Method untuk menampilkan paket.
      */
-    private static void showPaket() {
+    public static void showPaket() {
         System.out.println("+-------------Paket-------------+");
         System.out.println("| Express | 1 Hari | 12000 / Kg |");
         System.out.println("| Fast    | 2 Hari | 10000 / Kg |");
@@ -159,7 +159,7 @@ public class NotaGenerator {
             );
         }
         nota.append(String.format("Tanggal Terima  : %s\n", tanggalTerima));
-        nota.append(String.format("Tanggal Selesai : %s", endDate.format(formatter)));
+        nota.append(String.format("Tanggal Selesai : %s\n", endDate.format(formatter)));
         nota.append(String.format("%-15s : Belum bisa diambil :(", "Status"));
 
         return nota.toString();
@@ -205,16 +205,16 @@ public class NotaGenerator {
      * @param type name, nomorHP, startDate, packageType, or weight
      * @return data of type
      */    
-    public static String getData(String msg, String type) {
+    public static String getData(String msg, String type, Scanner input) {
         System.out.println(msg);
-        String data = input.nextLine().trim();
+        String data = input.nextLine();
         // input.nextLine();
 
         switch (type) {
             case "nomorHP":
                 while (!isStringNumeric(data)) {
                     System.out.println("Field nomor hp hanya menerima digit");
-                    data = input.nextLine().trim();
+                    data = input.nextLine();
                 }
                 break;
 
@@ -228,14 +228,14 @@ public class NotaGenerator {
                         System.out.println("[ketik ? untuk mencari tahu jenis paket]");
                         System.out.println(msg);
                     }
-                    data = input.nextLine().trim();
+                    data = input.nextLine();
                 }
                 break;
 
             case "weight":
                 while (!isStringNumeric(data) || Integer.parseInt(data) < 1) {
                     System.out.println("Harap masukkan berat cucian Anda dalam bentuk bilangan positif.");
-                    data = input.nextLine().trim();
+                    data = input.nextLine();
                 }
 
                 if (Integer.parseInt(data) < 2) {
@@ -248,7 +248,7 @@ public class NotaGenerator {
             default:
                 break;
         }
-        return data;
+        return data.trim();
     }
 
     /**

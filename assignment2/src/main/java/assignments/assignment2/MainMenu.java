@@ -40,8 +40,8 @@ public class MainMenu {
      * Handles the Generate User option (1)
      */
     private static void handleGenerateUser() {
-        String name = getData("Masukan nama Anda:", "name");
-        String noHp = getData("Masukan nomor handphone Anda:", "nomorHP");
+        String name = getData("Masukan nama Anda:", "name", input);
+        String noHp = getData("Masukan nomor handphone Anda:", "nomorHP", input);
         Member member = new Member(name, noHp);
 
         // Checks if member already exists by their unique ID
@@ -67,12 +67,12 @@ public class MainMenu {
 
         // Checks if the inputted member id is valid
         if (!memberList.containsKey(memberId)) {
-            System.out.printf("Member dengan ID %s tidak ditemukan!", memberId);
+            System.out.printf("Member dengan ID %s tidak ditemukan!\n", memberId);
             return;
         }
 
-        String paket = getData("Masukan paket laundry", "packageType");
-        int berat = Integer.parseInt(getData("Masukan berat cucian Anda [Kg]:", "weight"));
+        String paket = getData("Masukan paket laundry", "packageType", input);
+        int berat = Integer.parseInt(getData("Masukan berat cucian Anda [Kg]:", "weight", input));
         String startDate = fmt.format(cal.getTime());
     
         // Gets the member that corresponds to the inputted member id
@@ -81,7 +81,7 @@ public class MainMenu {
         member.incBonusCounter();
         
         Nota nota = new Nota(idNota, member, paket, berat, startDate);
-        System.out.println(nota.getNotaString());
+        System.out.println(nota);
 
         // Checks if this is the member's 3rd order, if it is then reset the bonus counter
         if (member.getBonusCounter() == 3) member.resetBonusCounter();
@@ -162,6 +162,7 @@ public class MainMenu {
         // Checks if the inputted id is ready to be picked up
         if (!notaList.get(id).isReady()) {
             System.out.printf("Nota dengan ID %d gagal diambil!\n", id);
+            return;
         }
 
         // On a successful pickup, remove the nota from the list
@@ -173,7 +174,7 @@ public class MainMenu {
      * Handles the Next Day option (6)
      */
     private static void handleNextDay() {
-        System.out.println("Dek Depe tidur hari ini... z...");
+        System.out.println("Dek Depe tidur hari ini... zzz...");
 
         // Checks if there is any nota on the list
         if (notaList.size() != 0) {

@@ -32,7 +32,8 @@ public class Nota {
 	 */
 	public void decSisaHariPengerjaan() {
 		if (this.sisaHariPengerjaan != 0) {
-			this.sisaHariPengerjaan--;
+			// this.sisaHariPengerjaan--;
+			if (--this.sisaHariPengerjaan == 0) this.isReady = true;
 			return;
 		}
 
@@ -44,10 +45,10 @@ public class Nota {
 	 * @return result from NotaGenerator.generateNota added
 	 *         with extra information needed from the doc
 	 */
-	public String getNotaString() {
+	public String toString() {
 		StringBuilder out = new StringBuilder();
-		out.append("Berhasil menambahkan nota!");
-		out.append(String.format("[ID Nota = %d]", this.idNota));
+		out.append("Berhasil menambahkan nota!\n");
+		out.append(String.format("[ID Nota = %d]\n", this.idNota));
 		out.append(
 			NotaGenerator.generateNota(
 				this.member.getId(), 
