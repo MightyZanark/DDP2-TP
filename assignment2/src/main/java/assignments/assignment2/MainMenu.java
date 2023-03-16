@@ -3,7 +3,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 
 import static assignments.assignment1.NotaGenerator.*;
 
@@ -125,7 +124,7 @@ public class MainMenu {
         // If there are members on the list, iterate over them to see their id and full names
         System.out.printf("Terdapat %d member dalam sistem.\n", memberList.size());
         for (Member member : memberList.values()) {
-            System.out.printf("- %1$s : %2$s\n", member.getId(), member.getName());
+            System.out.printf("- %s\n", member);
         }
     }
 
@@ -134,40 +133,30 @@ public class MainMenu {
      */
     private static void handleAmbilCucian() {
         System.out.println("Masukan ID nota yang akan diambil:");
-        int id = -1;
-        boolean idValid = false;
-        while (!idValid) {
-            // Checks if id is valid (>= 0)
-            try {
-                id = input.nextInt();
-                
-                // Negative id is the same as invalid id so jump to catch block
-                if (id < 0) throw new InputMismatchException();
-
-                idValid = true;
-            } catch (InputMismatchException err) {
-                // Tells the user how the ID should really be
-                System.out.println("ID nota berbentuk angka!");
-            } finally {
-                input.nextLine();
-            }
+        String idString = input.nextLine();
+        
+        // Checks if id is numeric and >= 0
+        while (!isStringNumeric(idString) || Integer.parseInt(idString) < 0) {
+            System.out.println("ID nota berbentuk angka!");
+            idString = input.nextLine();
         }
+        int idInt = Integer.parseInt(idString);
 
         // Checks if nota list has the inputted id
-        if (!notaList.containsKey(id)) {
-            System.out.printf("Nota dengan ID %d tidak ditemukan!\n", id);
+        if (!notaList.containsKey(idInt)) {
+            System.out.printf("Nota dengan ID %s tidak ditemukan!\n", idString);
             return;
         }
 
         // Checks if the inputted id is ready to be picked up
-        if (!notaList.get(id).isReady()) {
-            System.out.printf("Nota dengan ID %d gagal diambil!\n", id);
+        if (!notaList.get(idInt).isReady()) {
+            System.out.printf("Nota dengan ID %s gagal diambil!\n", idString);
             return;
         }
 
         // On a successful pickup, remove the nota from the list
-        System.out.printf("Nota dengan ID %d berhasil diambil!\n", id);
-        notaList.remove(id);
+        System.out.printf("Nota dengan ID %s berhasil diambil!\n", idString);
+        notaList.remove(idInt);
     }
 
     /**

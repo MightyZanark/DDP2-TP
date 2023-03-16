@@ -15,6 +15,10 @@ public class Member {
         this.bonusCounter = 0;
     }
 
+    public String toString() {
+        return String.format("%1$s : %2$s", id, nama);
+    }
+
     public String getName() {
         return nama;
     }

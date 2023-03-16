@@ -18,7 +18,8 @@ public class NotaGeneratorTest {
                 "BOCI-08203712389-79",
                 "reguler",
                 20,
-                "01/02/2023"
+                "01/02/2023",
+                false
             )
         );
 
@@ -34,7 +35,9 @@ public class NotaGeneratorTest {
                 "IKAN-08123298423-84", 
                 "express", 
                 1, 
-                "01/02/2023")
+                "01/02/2023",
+                false
+            )
         );
     }
 
