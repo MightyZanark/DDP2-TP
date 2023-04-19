@@ -14,7 +14,11 @@ public class Employee extends Member {
      * @param nama -> Nama lengkap dari employee
      */
     private static String generateId(String nama) {
-        // TODO
-        return "";
+        // Split nama based on whitespaces and get the first element
+        String firstName = nama.split("\\s+")[0];
+        StringBuilder id = new StringBuilder(firstName.toUpperCase());
+        id.append(String.format("-%d", employeeCount++));
+
+        return id.toString();
     }
 }
