@@ -12,12 +12,17 @@ public class EmployeeSystem extends SystemCLI {
      * Membuat object baru EmployeeSystem dan mendaftarkan Employee pada CuciCuci
      */
     public EmployeeSystem() {
-        memberList = new Member[]{
+        Member[] tempList = new Member[]{
                 new Employee("Dek Depe", "akuDDP"),
                 new Employee("Depram", "musiktualembut"),
                 new Employee("Lita Duo", "gitCommitPush"),
                 new Employee("Ivan Hoshimachi", "SuamiSahSuisei"),
         };
+        
+        // Manually add all the member in tempList to memberList
+        for (Member member : tempList) {
+            memberList.add(member);
+        }
     }
 
     /**
@@ -29,7 +34,11 @@ public class EmployeeSystem extends SystemCLI {
     @Override
     protected boolean processChoice(int choice) {
         boolean logout = false;
-        // TODO:
+        switch(choice) {
+            case 1 -> handleCuci();
+            case 2 -> displayListNota();
+            case 3 -> logout = true;
+        }
         return logout;
     }
 
@@ -41,5 +50,24 @@ public class EmployeeSystem extends SystemCLI {
         System.out.println("1. It's nyuci time");
         System.out.println("2. Display List Nota");
         System.out.println("3. Logout");
+    }
+
+    /**
+     * Work on every nota currently on notaList
+     */
+    private void handleCuci() {
+        System.out.printf("Stand back! %s beginning to nyuci!\n", loginMember.getNama());
+        for (Nota nota : notaList) {
+            System.out.println(nota.kerjakan());
+        }
+    }
+
+    /**
+     * Displays all nota's status in listNota
+     */
+    private void displayListNota() {
+        for (Nota nota : notaList) {
+            System.out.println(nota.getNotaStatus());
+        }
     }
 }
