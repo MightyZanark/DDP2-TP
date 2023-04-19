@@ -112,7 +112,7 @@ public class NotaGenerator {
 
     /**
      *
-     * Method untuk membuat Nota.
+     * Method untuk membuat Nota, TP2 version.
      * Parameter dan return type dari method ini tidak boleh diganti agar tidak mengganggu testing.
      *
      * @return string nota dengan format di bawah:
@@ -166,6 +166,51 @@ public class NotaGenerator {
     }
 
     /**
+     *
+     * Method untuk membuat Nota, TP 3 version.
+     * Parameter dan return type dari method ini tidak boleh diganti agar tidak mengganggu testing.
+     *
+     * @return string nota dengan format di bawah:
+     *         <p>ID    : [id]
+     *         <p>Paket : [paket]
+     *         <p>Harga :
+     *         <p>[berat] kg x [hargaPaketPerKg] = [totalHarga]
+     *         <p>Tanggal Terima  : [tanggalTerima]
+     *         <p>Tanggal Selesai : [tanggalTerima + LamaHariPaket]
+     */
+    public static String generateNota(String id, String paket, int berat, String tanggalTerima) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate endDate = LocalDate.parse(tanggalTerima, formatter);
+        long packagePrice = 0;
+        StringBuilder nota = new StringBuilder();
+        nota.append(String.format("%-5s : %s\n", "ID", id));
+        nota.append(String.format("%-5s : %s\n", "Paket", paket));
+        nota.append(String.format("%-5s :\n", "Harga"));
+        switch (paket.toLowerCase()) {
+            case "express":
+                packagePrice = 12000L;
+                endDate = endDate.plusDays(1);
+                break;
+            case "fast":
+                packagePrice = 10000L;
+                endDate = endDate.plusDays(2);
+                break;
+            case "reguler":
+                packagePrice = 7000L;
+                endDate = endDate.plusDays(3);
+                break;
+        }
+        
+        // berat = berat < 2 ? 2 : berat;
+        long totalPrice = berat * packagePrice;
+        nota.append(String.format("%d kg x %d = %d\n", berat, packagePrice, totalPrice));
+        nota.append(String.format("tanggal terima  : %s\n", tanggalTerima));
+        nota.append(String.format("tanggal selesai : %s\n", endDate.format(formatter)));
+
+        return nota.toString();
+    }
+
+    /**
      * Method to check if the whole string is numeric
      * @param str
      * @return true if the whole string is numeric, false otherwise
@@ -206,9 +251,8 @@ public class NotaGenerator {
      * @return data of type
      */    
     public static String getData(String msg, String type, Scanner input) {
-        System.out.println(msg);
+        if(!msg.isBlank()) System.out.println(msg); // Adjusted for TP3
         String data = input.nextLine();
-        // input.nextLine();
 
         switch (type) {
             case "nomorHP":
@@ -240,6 +284,7 @@ public class NotaGenerator {
 
                 if (Integer.parseInt(data) < 2) {
                     System.out.println("Cucian kurang dari 2 kg, maka cucian dianggap sebagai 2 kg");
+                    data = "2";
                 }
                 break;
 
