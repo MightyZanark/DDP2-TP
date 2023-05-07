@@ -63,9 +63,9 @@ public class Nota {
         return String.format(formatStatus, id, "Sudah selesai.");
     }
     public void toNextDay() {
-        // If the nota is not done or sisaHariPengerjaan > 0,
+        // If the nota is not done,
         // reduce sisaHariPengerjaan by 1
-        if (!isDone || sisaHariPengerjaan > 0) {
+        if (!isDone) {
             --sisaHariPengerjaan;
         }
     }
@@ -79,9 +79,9 @@ public class Nota {
             sum += service.getHarga(berat);
         }
 
-        // If nota is not done and sisaHariPengerjaan is < 0,
+        // If nota sisaHariPengerjaan is < 0,
         // then apply compensation fee, which is 2000/day
-        if (!isDone && sisaHariPengerjaan < 0) {
+        if (sisaHariPengerjaan < 0) {
             sum += sisaHariPengerjaan * 2000;
         }
 
@@ -113,15 +113,16 @@ public class Nota {
                     service.getHarga(berat))
             );
         }
-        res.append(String.format("Harga Akhir: %d\n", calculateHarga()));
+        res.append(String.format("Harga Akhir: %d", calculateHarga()));
 
-        // If nota is not done and sisaHariPengerjaan < 0, then final price
+        // If nota sisaHariPengerjaan < 0, then final price
         // includes compensation fee, so add the info to the detail
-        if (!isDone && sisaHariPengerjaan < 0) {
+        if (sisaHariPengerjaan < 0) {
             res.append(
                 String.format(
                     " Ada kompensasi keterlambatan %d * 2000 hari", 
-                    Math.abs(sisaHariPengerjaan))
+                    Math.abs(sisaHariPengerjaan)
+                )
             );
         }
         return res.toString() + "\n";
