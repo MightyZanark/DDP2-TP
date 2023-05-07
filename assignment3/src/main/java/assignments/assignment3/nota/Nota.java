@@ -108,12 +108,12 @@ public class Nota {
         for (LaundryService service : services) {
             res.append(
                 String.format(
-                    "-%s @ Rp.%d", 
+                    "-%s @ Rp.%d\n", 
                     service.getServiceName(), 
                     service.getHarga(berat))
             );
         }
-        res.append(String.format("Harga Akhir: %d", calculateHarga()));
+        res.append(String.format("Harga Akhir: %d\n", calculateHarga()));
 
         // If nota is not done and sisaHariPengerjaan < 0, then final price
         // includes compensation fee, so add the info to the detail
