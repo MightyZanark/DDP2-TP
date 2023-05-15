@@ -37,6 +37,47 @@ public class HomeGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        
+        titleLabel = new JLabel("Welcome to CuciCuci System!");
+        constraints.anchor = GridBagConstraints.LINE_START;
+        mainPanel.add(titleLabel, constraints);
+        
+        loginButton = new JButton("Login");
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleToLogin();
+            }
+        });
+        constraints.gridy = 1;
+        mainPanel.add(loginButton, constraints);
+
+        registerButton = new JButton("Register");
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleToRegister();
+            }
+        });
+        constraints.gridy = 2;
+        mainPanel.add(registerButton, constraints);
+
+        toNextDayButton = new JButton("Next Day");
+        toNextDayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleNextDay();
+            }
+        });
+        constraints.gridy = 3;
+        mainPanel.add(toNextDayButton, constraints);
+
+        dateLabel = new JLabel(
+            "Today: " + NotaManager.fmt.format(NotaManager.cal.getTime())
+        );
+        constraints.gridy = 4;
+        mainPanel.add(dateLabel, constraints);
     }
 
     /**
@@ -51,6 +92,7 @@ public class HomeGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "loginButton"
      * */
     private static void handleToLogin() {
+        MainFrame.getInstance().navigateTo(LoginGUI.KEY);
     }
 
     /**
@@ -58,5 +100,15 @@ public class HomeGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "toNextDayButton"
      * */
     private void handleNextDay() {
+        toNextDay();
+        dateLabel.setText(
+            "Today: " + NotaManager.fmt.format(NotaManager.cal.getTime())
+        );
+        JOptionPane.showMessageDialog(
+            null, 
+            "You're done for the day... zzz...",
+            "This is Prince Paul's Bubble Party Ability!",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
