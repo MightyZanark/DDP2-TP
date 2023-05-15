@@ -68,8 +68,21 @@ public class MemberSystemGUI extends AbstractMemberGUI {
             sb.append(nota.toString());
         }
         
-        JTextArea textArea = new JTextArea(sb.toString());
-        JOptionPane.showInternalMessageDialog(null, sb.toString(), "Detail Nota", JOptionPane.INFORMATION_MESSAGE);
+        String detailNota = sb.toString();
+        if (detailNota.isBlank()) {
+            detailNota = "You have never used CuciCuci's Service :(";
+        }
+
+        JTextArea textArea = new JTextArea(detailNota);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        JOptionPane.showMessageDialog(
+            null, 
+            scrollPane, 
+            "Detail Nota", 
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
     /**
