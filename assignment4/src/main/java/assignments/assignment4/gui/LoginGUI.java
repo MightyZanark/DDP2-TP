@@ -86,6 +86,7 @@ public class LoginGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
+        clearField();
         MainFrame.getInstance().navigateTo(HomeGUI.KEY);
     }
 
@@ -110,5 +111,12 @@ public class LoginGUI extends JPanel {
             passwordField.setText("");
             return;
         }
+
+        clearField();
+    }
+
+    private void clearField() {
+        idTextField.setText("");
+        passwordField.setText("");
     }
 }

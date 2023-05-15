@@ -85,6 +85,7 @@ public class HomeGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "registerButton"
      * */
     private static void handleToRegister() {
+        MainFrame.getInstance().navigateTo(RegisterGUI.KEY);
     }
 
     /**
