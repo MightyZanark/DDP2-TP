@@ -31,7 +31,11 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
     @Override
     protected JButton[] createButtons() {
         // TODO
+        JButton butt1 = new JButton("It's Nyuci Time!");
+        JButton butt2 = new JButton("Display List Nota");
         return new JButton[]{
+            butt1,
+            butt2
         };
     }
 
@@ -55,13 +59,45 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     private void displayNota() {
         // TODO
+        StringBuilder sb = new StringBuilder();
+        for(Nota nota : NotaManager.notaList) {
+            sb.append(nota.getNotaStatus() + "\n");
+        }
+        
+        JOptionPane.showMessageDialog(
+            null, 
+            sb.toString(), 
+            "Nota List", 
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
-
+    
     /**
      * Menampilkan dan melakukan action mencuci.
      * Akan dipanggil jika pengguna menekan button kedua pada createButtons
      * */
     private void cuci() {
         // TODO
+        StringBuilder sb = new StringBuilder();
+        for(Nota nota : NotaManager.notaList) {
+            sb.append(nota.kerjakan() + "\n");
+        }
+    
+        JOptionPane.showMessageDialog(
+            null, 
+            String.format(
+                "Stand back! %s beginning to nyuci!", 
+                loggedInMember.getNama()
+            ), 
+            "Nyuci Time", 
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        
+        JOptionPane.showMessageDialog(
+            null, 
+            sb.toString(), 
+            "Nyuci Results", 
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
