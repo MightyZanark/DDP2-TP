@@ -40,6 +40,7 @@ public class MainFrame extends JFrame{
 //        });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 432);
+        setLocationRelativeTo(null);
         setVisible(true);
         loginablePanel = new Loginable[]{
                 employeeSystemGUI,
@@ -84,6 +85,7 @@ public class MainFrame extends JFrame{
      * */
     public void navigateTo(String page){
         // TODO
+        cards.show(mainPanel, page);
     }
 
     /**
@@ -97,9 +99,12 @@ public class MainFrame extends JFrame{
      * @return boolean yang menandakan apakah login berhasil atau gagal.
      * */
     public boolean login(String id, String password){
-        for (Loginable panel:
-                loginablePanel) {
+        for (Loginable panel : loginablePanel) {
             // TODO
+            if (panel.login(id, password)) {
+                cards.show(mainPanel, panel.getPageName());
+                return true;
+            }
         }
         return false;
     }
@@ -109,8 +114,7 @@ public class MainFrame extends JFrame{
      * Method untuk logout dari sistem, kemudian menampilkan halaman Home.
      * */
     public void logout(){
-        for (Loginable panel:
-                loginablePanel) {
+        for (Loginable panel : loginablePanel) {
             panel.logout();
         }
         navigateTo(HomeGUI.KEY);
