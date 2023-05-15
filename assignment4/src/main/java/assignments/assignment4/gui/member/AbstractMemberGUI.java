@@ -43,6 +43,8 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
         JButton[] buttons = createButtons();
         ActionListener[] listeners = createActionListeners();
 
+        // System.out.println(buttons.length);
+        // System.out.println(listeners.length);
         if (buttons.length != listeners.length) {
             throw new IllegalStateException("Number of buttons and listeners must be equal.");
         }
@@ -77,7 +79,7 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
     /**
      * Method untuk login pada panel.
      * <p>
-     * Method ini akan melakukan pengecekan apakah ID dan passowrd yang telah diberikan dapat login
+     * Method ini akan melakukan pengecekan apakah ID dan password yang telah diberikan dapat login
      * pada panel ini. <p>
      * Jika bisa, member akan login pada panel ini, method akan:<p>
      *  - mengupdate Welcome & LoggedInAs label.<p>
@@ -89,7 +91,13 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
      * */
     public boolean login(String id, String password) {
         // TODO
-        return false;
+        loggedInMember = systemCLI.authUser(id, password);
+        if (loggedInMember == null) return false;
+
+        String name = loggedInMember.getNama();
+        welcomeLabel.setText("Welcome! " + name);
+        loggedInAsLabel.setText("Logged in as " + name);
+        return true;
     }
 
     /**
