@@ -8,7 +8,6 @@ import assignments.assignment4.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegisterGUI extends JPanel {
     public static final String KEY = "REGISTER";
@@ -42,42 +41,54 @@ public class RegisterGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
-        // TODO
         GridBagConstraints constraints = new GridBagConstraints();
         
+        // Set nameLabel
         nameLabel = new JLabel("Masukkan nama Anda:");
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.anchor = GridBagConstraints.PAGE_START;
+        constraints.weightx = 1;
+        constraints.insets = new Insets(10, 20, 10, 20);
         mainPanel.add(nameLabel, constraints);
 
+        // Set nameTextField
         nameTextField = new JTextField();
         constraints.gridy = 1;
         mainPanel.add(nameTextField, constraints);
 
+        // Set phoneLabel
         phoneLabel = new JLabel("Masukkan nomor handphone Anda:");
         constraints.gridy = 2;
         mainPanel.add(phoneLabel, constraints);
 
+        // Set phoneTextField
         phoneTextField = new JTextField();
         constraints.gridy = 3;
         mainPanel.add(phoneTextField, constraints);
 
+        // Set passwordLabel
         passwordLabel = new JLabel("Masukkan password Anda:");
         constraints.gridy = 4;
         mainPanel.add(passwordLabel, constraints);
 
+        // Set passwordField
         passwordField = new JPasswordField();
         constraints.gridy = 5;
         mainPanel.add(passwordField, constraints);
 
+        // Set registerButton
         registerButton = new JButton("Register");
         registerButton.addActionListener((ActionEvent e) -> handleRegister());
         constraints.gridy = 6;
+        constraints.insets = new Insets(20, 20, 5, 20);
+        constraints.fill = GridBagConstraints.NONE;
         mainPanel.add(registerButton, constraints);
-
+        
+        // Set backButton
         backButton = new JButton("Back");
         backButton.addActionListener((ActionEvent e) -> handleBack());
         constraints.gridy = 7;
+        constraints.insets = new Insets(5, 20, 20, 20);
         mainPanel.add(backButton, constraints);
     }
 
@@ -95,14 +106,14 @@ public class RegisterGUI extends JPanel {
     * Akan dipanggil jika pengguna menekan "registerButton"
     * */
     private void handleRegister() {
-        // TODO
         String name = nameTextField.getText().trim();
         String phoneNum = phoneTextField.getText().trim();
         String pass = new String(passwordField.getPassword());
 
+        // Check if all fields are filled
         if (name.isEmpty() || phoneNum.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(
-                null, 
+                this, 
                 "Please fill in all of the fields", 
                 "Empty Field", 
                 JOptionPane.ERROR_MESSAGE
@@ -110,9 +121,10 @@ public class RegisterGUI extends JPanel {
             return;
         }
         
+        // Check if phone number is only numbers
         if (!NotaGenerator.isStringNumeric(phoneNum)) {
             JOptionPane.showMessageDialog(
-                null, 
+                this, 
                 "Phone number has to be numeric!", 
                 "Invalid Phone Number", 
                 JOptionPane.ERROR_MESSAGE
@@ -122,9 +134,11 @@ public class RegisterGUI extends JPanel {
         }
 
         Member registeredMember = loginManager.register(name, phoneNum, pass);
+        
+        // Check if registeredMember already exist
         if (registeredMember == null) {
             JOptionPane.showMessageDialog(
-                null, 
+                this, 
                 String.format(
                     "Member %s with phone number %s already exist!",
                     name,
@@ -138,19 +152,23 @@ public class RegisterGUI extends JPanel {
         }
 
         JOptionPane.showMessageDialog(
-            null, 
+            this, 
             String.format(
-                "Successfully created member with ID %s!",
+                "Successfully created member with ID %s!\n",
                 registeredMember.getId()
             ), 
-            "Registration Successfull", 
-            JOptionPane.INFORMATION_MESSAGE
+            "Registration Successful", 
+            JOptionPane.INFORMATION_MESSAGE,
+            new ImageIcon(MainFrame.getImageDir() + "pompom-welcome.gif")
         );
         
         handleBack();
         return;
     }
 
+    /**
+     * Clears nameTextField, phoneTextField, and passwordField
+     */
     private void clearField() {
         nameTextField.setText("");
         phoneTextField.setText("");

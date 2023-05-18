@@ -25,6 +25,15 @@ public class EmployeeSystem extends SystemCLI {
         }
     }
 
+    /** 
+     * Adds employees to the memberList
+    */
+    public void addEmployee(Employee[] employees) {
+        for (Member member : employees) {
+            memberList.add(member);
+        }
+    }
+
     /**
      * Memproses pilihan dari employee yang masuk ke sistem ini sesuai dengan menu specific.
      *

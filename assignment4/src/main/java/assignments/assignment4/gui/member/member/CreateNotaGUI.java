@@ -11,7 +11,6 @@ import assignments.assignment4.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -45,16 +44,17 @@ public class CreateNotaGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
-        // TODO
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
+        // Set paketLabel
         paketLabel = new JLabel("Paket Laundry:");
         constraints.weightx = 0.8;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.anchor = GridBagConstraints.LINE_START;
         mainPanel.add(paketLabel, constraints);
 
+        // Set paketCombobox
         String[] paketOption = new String[]{"Express", "Fast", "Reguler"};
         paketComboBox = new JComboBox<>(paketOption);
         constraints.gridx = 1;
@@ -62,11 +62,13 @@ public class CreateNotaGUI extends JPanel {
         constraints.anchor = GridBagConstraints.LINE_END;
         mainPanel.add(paketComboBox, constraints);
 
+        // Set showPaketButton
         showPaketButton = new JButton("Show Paket");
         showPaketButton.addActionListener((ActionEvent e) -> showPaket());
         constraints.gridx = 2;
         mainPanel.add(showPaketButton, constraints);
 
+        // Set beratLabel
         beratLabel = new JLabel("Berat Cucian (Kg):");
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -74,6 +76,7 @@ public class CreateNotaGUI extends JPanel {
         constraints.anchor = GridBagConstraints.LINE_START;
         mainPanel.add(beratLabel, constraints);
 
+        // Set beratTextField
         beratTextField = new JTextField();
         constraints.gridx = 1;
         constraints.weightx = 0.3;
@@ -81,6 +84,7 @@ public class CreateNotaGUI extends JPanel {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         mainPanel.add(beratTextField, constraints);
 
+        // Set setrikaCheckBox
         setrikaCheckBox = new JCheckBox("Tambah Setrika Service (1000 / kg)");
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -89,19 +93,26 @@ public class CreateNotaGUI extends JPanel {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         mainPanel.add(setrikaCheckBox, constraints);
         
+        // Set antarCheckBox
         antarCheckBox = new JCheckBox("Tambah Antar Service (2000 / 4kg pertama, kemudian 500 / kg)");
         constraints.gridy = 3;
         mainPanel.add(antarCheckBox, constraints);
 
+        // Set createNotaButton
         createNotaButton = new JButton("Create Nota");
         createNotaButton.addActionListener((ActionEvent e) -> createNota());
         constraints.gridy = 4;
         constraints.gridwidth = 3;
+        constraints.anchor = GridBagConstraints.PAGE_END;
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.insets = new Insets(20, 20, 5, 20);
         mainPanel.add(createNotaButton, constraints);
-
+        
+        // Set backButton
         backButton = new JButton("Back");
         backButton.addActionListener((ActionEvent e) -> handleBack());
         constraints.gridy = 5;
+        constraints.insets = new Insets(5, 20, 20, 20);
         mainPanel.add(backButton, constraints);
 
         add(mainPanel);
@@ -132,10 +143,10 @@ public class CreateNotaGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "createNotaButton"
      * */
     private void createNota() {
-        // TODO
         String paket = (String) paketComboBox.getSelectedItem();
         String berat = beratTextField.getText().trim();
 
+        // Validate berat
         if (!NotaGenerator.isStringNumeric(berat) || Integer.parseInt(berat) <= 0) {
             JOptionPane.showMessageDialog(
                 this, 
@@ -147,6 +158,7 @@ public class CreateNotaGUI extends JPanel {
             return;
         }
         
+        // If berat < 2, show an infobox
         int beratInt = Integer.parseInt(berat);
         if (beratInt < 2) {
             beratInt = 2;
@@ -158,6 +170,7 @@ public class CreateNotaGUI extends JPanel {
             );
         }
 
+        // Get loggedInMember and create the Nota
         Member member = memberSystemGUI.getLoggedInMember();
         Nota nota = new Nota(
             member,
@@ -190,11 +203,14 @@ public class CreateNotaGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
-        // TODO
         clearField();
         MainFrame.getInstance().navigateTo(MemberSystemGUI.KEY);
     }
     
+    /**
+     * Clears beratTextField, setrikaCheckBox, and antarCheckBox<p>
+     * While also setting paketCombobox to the first index
+     */
     private void clearField() {
         paketComboBox.setSelectedIndex(0);
         beratTextField.setText("");

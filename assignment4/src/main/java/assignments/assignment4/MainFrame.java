@@ -16,6 +16,7 @@ import java.awt.*;
 
 
 public class MainFrame extends JFrame{
+    private static final String imageDir = "./src/main/java/assignments/assignment4/images/";
     private static MainFrame instance;
     private final Loginable[] loginablePanel;
     private final MemberSystem memberSystem = new MemberSystem();
@@ -32,15 +33,16 @@ public class MainFrame extends JFrame{
 
     private MainFrame(){
         super("CuciCuciSystem");
-//        TODO: uncomment code dibawah ini setelah kamu implmentasikan addEmployee pada EmployeeSystem.
-//        // for context dari 2 employee baru ini : https://ristek.link/karyawan-baru-cucicuci
-//        employeeSystem.addEmployee(new Employee[]{
-//                new Employee("delta Epsilon Huha Huha", "ImplicitDiff"),
-//                new Employee("Regret", "FansBeratKanaArima")
-//        });
+        // for context dari 2 employee baru ini : https://ristek.link/karyawan-baru-cucicuci
+        employeeSystem.addEmployee(new Employee[]{
+                new Employee("delta Epsilon Huha Huha", "ImplicitDiff"),
+                new Employee("Regret", "FansBeratKanaArima")
+        });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 432);
         setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon(imageDir + "683138.png");
+        setIconImage(icon.getImage());
         setVisible(true);
         loginablePanel = new Loginable[]{
                 employeeSystemGUI,
@@ -79,12 +81,19 @@ public class MainFrame extends JFrame{
     }
 
     /**
+     * Returns main image directory
+     * @return
+     */
+    public static String getImageDir() {
+        return imageDir;
+    }
+
+    /**
      * Method untuk pergi ke panel sesuai dengan yang diberikan pada param.
      *
      * @param page -> key dari halaman yang diinginkan.
      * */
     public void navigateTo(String page){
-        // TODO
         cards.show(mainPanel, page);
     }
 
@@ -100,9 +109,8 @@ public class MainFrame extends JFrame{
      * */
     public boolean login(String id, String password){
         for (Loginable panel : loginablePanel) {
-            // TODO
             if (panel.login(id, password)) {
-                cards.show(mainPanel, panel.getPageName());
+                navigateTo(panel.getPageName());
                 return true;
             }
         }

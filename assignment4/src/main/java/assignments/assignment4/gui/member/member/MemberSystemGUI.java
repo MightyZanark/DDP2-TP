@@ -34,7 +34,6 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * */
     @Override
     protected JButton[] createButtons() {
-        // TODO
         JButton butt1 = new JButton("I want to laundry");
         JButton butt2 = new JButton("See my nota details");
         return new JButton[]{
@@ -62,21 +61,23 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button pertama pada createButtons
      * */
     private void showDetailNota() {
-        // TODO
         StringBuilder sb = new StringBuilder();
         for (Nota nota : loggedInMember.getNotaList()) {
-            sb.append(nota.toString());
+            sb.append(nota.toString() + "\n");
         }
         
+        // Check if user has any Nota to display at all
         String detailNota = sb.toString();
         if (detailNota.isBlank()) {
             detailNota = "You have never used CuciCuci's Service :(";
         }
 
-        JTextArea textArea = new JTextArea(detailNota);
+        // Set up scrollable text area
+        JTextArea textArea = new JTextArea(detailNota, 20, 15);
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
         JOptionPane.showMessageDialog(
             null, 
             scrollPane, 
@@ -90,7 +91,6 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button kedua pada createButtons
      * */
     private void createNota() {
-        // TODO
         MainFrame.getInstance().navigateTo(CreateNotaGUI.KEY);
     }
 
