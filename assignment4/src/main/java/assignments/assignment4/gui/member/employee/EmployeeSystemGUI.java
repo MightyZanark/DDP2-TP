@@ -63,9 +63,22 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
             sb.append(nota.getNotaStatus() + "\n");
         }
         
+        // Check if there is any nota to display
+        String notaStatuses = sb.toString();
+        if (notaStatuses.isBlank()) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Nothing to see here...", 
+                "Nota List", 
+                JOptionPane.ERROR_MESSAGE,
+                new ImageIcon(MainFrame.getImageDir() + "1171228.png")
+            );
+            return;
+        }
+
         JOptionPane.showMessageDialog(
-            null, 
-            sb.toString(), 
+            this, 
+            notaStatuses, 
             "Nota List", 
             JOptionPane.INFORMATION_MESSAGE
         );
@@ -92,9 +105,22 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
             new ImageIcon(MainFrame.getImageDir() + "tsukuyo-watergun.gif")
         );
         
+        // Check if there is any nota to display
+        String result = sb.toString();
+        if (result.isBlank()) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Nothing to cuci here...", 
+                "Nyuci Results", 
+                JOptionPane.ERROR_MESSAGE,
+                new ImageIcon(MainFrame.getImageDir() + "1171228.png")
+            );
+            return;
+        }
+
         JOptionPane.showMessageDialog(
             this, 
-            sb.toString(), 
+            result, 
             "Nyuci Results", 
             JOptionPane.INFORMATION_MESSAGE
         );
