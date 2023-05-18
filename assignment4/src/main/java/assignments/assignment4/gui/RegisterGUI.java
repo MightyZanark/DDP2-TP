@@ -107,7 +107,7 @@ public class RegisterGUI extends JPanel {
     * */
     private void handleRegister() {
         String name = nameTextField.getText().trim();
-        String phoneNum = phoneTextField.getText().trim();
+        String phoneNum = phoneTextField.getText();
         String pass = new String(passwordField.getPassword());
 
         // Check if all fields are filled
